@@ -1,0 +1,31 @@
+<div class="ts-container">
+    <div class="clearfix searchspin">
+        <dl style="height: 30px;">
+            <dt>筛选条件:</dt>
+            <dd>
+                <form action="" method="get">
+                    条件筛选:
+                    <select name="ts-field">
+                        <option value="id">ID</option><option value="main_table">主表ID</option><option value="main_field">主表关联字段</option><option value="relation_table">关系表ID</option><option value="relation_field">关系表关联字段</option><option value="type">关系类型</option><option value="ctime">创建时间</option><option value="utime">修改时间</option><option value="status">状态</option>                    </select>
+                    <select class="ts-select-type" name="where[id][0]">
+                        <option value="eq">=</option>
+                        <option value="gt">&gt;</option>
+                        <option value="lt">&lt;</option>
+                        <option value="like">像</option>
+                    </select>
+                    <input class="ts-value" name="where[id][1]" value="">
+                    <button class="btn btn-primary btn-xs ts-search">收索</button>
+                    <br/>
+                    <br/>
+                </form>
+            </dd>
+        </dl>
+        <a class="kehu uploadify-button" href="{{'U' | F:'edit'}}" role="button">添加模型关系</a>
+    </div>
+    <div class="spin-cont">
+        <div id="paper"></div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,92 @@
+body{
+    min-width: 990px;
+}
+.head{
+    background-color: #006699;
+    height: 60px;
+}
+.nav-bar{
+    display: inline-block;
+    margin-left: 20%;
+    margin-bottom: -13px;
+}
+.nav-bar li{
+    float: left;
+    margin-top: 21px;
+    font-size: 30px;
+}
+.font-white{
+    color: #ffffff;
+}
+.nav-bar li a{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0px 20px;
+}
+.nav-bar li a:hover{
+    background-color: #ffffff;
+    color:#006699 ;
+}
+
+body *{
+
+
+}
+.logo{
+    float: left;
+    display: inline-block;
+}
+.fr{
+    float: right;
+}
+@media screen and (max-width:1240px){
+    .nav-bar{
+        margin-left:0px;
+    }
+}
+.user-info{
+    margin-top: 33px;
+    margin-right: 40px;
+    color: #ffffff;
+}
+.red{
+    color: #E2A329;
+}
+body{
+    background: #6699CC;
+}
+.content-center{
+    width: 70%;
+    margin:0px auto;
+}
+.content-center dl{
+    margin-left: 10%;
+    color: #ffffff;
+}
+.content-center dl input{
+    color: #333333;
+}
+.content-center dl dd{
+    margin-left: 20%;
+    font-size: 20px;
+}
+.content-center dl dd input{
+    margin-bottom: 0px;
+}
+.register .content-center dd input{
+    float: right;
+    margin-right: 45%;
+}
+@media screen and (max-width:1185px){
+    .register .content-center dd input{
+        margin-right: 34%;
+    }
+}
+.register .content-center dl{
+    margin-left:7%;
+    background-color:#E4E8ED ;
+    color: #535455;
+}
+.register .content-center dd{
+    height: 50px;
+}

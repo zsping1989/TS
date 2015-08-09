@@ -1,0 +1,50 @@
+<!--弹窗模板-->
+<script id="dialog" type="text/html">
+    <div class="self {{$1}}if !shade{{$2}}dialog-close{{$1}}/if{{$2}}">
+        <div style="display: block;" class="modal fade in">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close close-self"><span>×</span></button>
+                        <h4 class="modal-title">{{$1}}#title{{$2}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{$1}}#content{{$2}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default close-self">关闭</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{$1}}if shade{{$2}}
+        <div class="modal-backdrop fade in"></div>
+        {{$1}}/if{{$2}}
+    </div>
+</script>
+
+<script id="alt" type="text/html">
+    <div class="self modal-dialog">
+        <div class="alert alert-{{$1}}status{{$2}}">
+            <button type="button" class="close close-self">×</button>
+            <span>
+                <h4>
+                    {{$1}}if !statusTitle{{$2}}
+                        {{$1}}if status=='warning'{{$2}}警告:{{$1}}else{{$2}}提示:{{$1}}/if{{$2}}
+                    {{$1}}else{{$2}}
+                        {{$1}}statusTitle{{$2}}
+                    {{$1}}/if{{$2}}
+                </h4>
+                {{$1}}#content{{$2}}
+            </span>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+

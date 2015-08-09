@@ -1,0 +1,350 @@
+@charset "UTF-8";
+
+/*二维码预览*/
+.qr_box{
+	position: absolute;
+	top: 82px;
+	left: 600px;
+	border: 1px solid #ccc;
+	width: 280px;
+	height: 400px;
+	z-index: 300;
+	font-size: 12px;
+	background: #eee;
+}
+.qr_box .tip_title{
+	margin: 24px 12px 20px 12px;
+	font-size: 14px;
+}
+.qr_box .qr_img{
+	margin: 0 0 2px 75px;
+	display: block;
+}
+.qr_box .tip_content{
+	margin: 0 0 6px 50px;
+	width: 190px;
+}
+.qr_box .message{
+	padding: 0 40px 6px 50px;
+	border-bottom: 1px dashed #ccc;
+}
+.qr_box .video_info{
+	margin: 10px 0 0 0;
+	padding: 0 20px 0 50px;
+}
+.qr_box .video_info .video_name{
+	float: left;
+}
+.qr_box .video_info .video_hall_name{
+	float: right;
+}
+.qr_box .goods_list{
+	padding: 0 20px 0 50px;
+}
+.qr_box .goods_list .item{
+}
+.qr_box .qr_time{
+	margin: 0 0 0 0;
+	padding: 0 20px 4px 50px;
+	text-align: right;
+}
+.qr_box_title {
+	position: absolute;
+	top: 495px;
+	left: 680px;
+	font-size: 22px;
+	font-weight: bold;
+	z-index: 300;
+}
+/*影票预览*/
+.ticket_box{
+	position: absolute;
+	top: 544px;
+	left: 560px;
+	width: 379px;
+	height: 206px;
+	z-index: 300;
+	background-image: url('/Public/admin/image/mictic_ticket.png');
+}
+.ticket_box .logo_img{
+	float: left;
+	margin: 12px 12px 4px 60px;
+	width: 60px;
+	height: 60px;
+}
+.ticket_box .cinema_name{
+	float: left;
+	margin: 32px 0 0 108px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.ticket_box_title {
+	position: absolute;
+	top: 760px;
+	left: 720px;
+	font-size: 22px;
+	font-weight: bold;
+	z-index: 300;
+}
+/*后台表单*/
+.bg-textarea {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    height: 80px;
+    line-height: 20px;
+    padding: 4px;
+}
+.error_message{
+    color: red;
+}
+.page{
+    margin-top: 20px;
+}
+.spin-cont table th{
+    line-height: 40px;
+}
+.spin-cont table td{
+    line-height: 30px;
+}
+.th_order{
+    color: #08c;
+    font-size: 12px;
+	cursor: pointer;
+}
+
+/*表单的checkbox列表样式*/
+.checkbox_list{
+}
+.checkbox_list .item{
+    line-height: 20px;
+}
+.checkbox_list input[type="checkbox"]{
+    float: left;
+    margin: 6px 6px 0 0;
+}
+.checkbox_list span{
+    float: left;
+    margin: 6px 6px 0 0;
+}
+/*权限选项样式*/
+.permission_list{
+	float: left;
+	width: 680px;
+	line-height: 26px;
+}
+.permission_list input[type="checkbox"]{
+    float: left;
+    margin: 4px 4px 0 0;
+}
+.permission_list .level_1{
+	font-size: 14px;
+	font-weight: bold;
+}
+.permission_list .level_2{
+	margin-left: 30px;
+}
+.permission_list .level_3{
+	margin-left: 50px;
+	float: left;
+}
+.permission_list .level_3_list{
+	margin-left: 30px;
+}
+
+/*表格操作bar*/
+.option_bar{
+    margin: 20px 0 0 0;
+}
+.option_bar label{
+    float: left;
+    margin: 3px 12px 0 0;
+}
+.option_bar input[type="checkbox"]{
+    float: left;
+    margin: 5px 6px 0 20px;
+}
+.input_sort{
+	width: 60px;
+}
+
+/*首页*/
+.msg-cont .item{
+	margin: 10px 0 0px 20px;
+}
+.msg-cont .item label{
+	width: 120px;
+	text-align: right;
+	float: left;
+}
+.pie_img{
+	float: left;
+	width: 450px;
+	height: 300px;
+	border: 1px solid #cdcdcd;
+	margin: 20px 10px 20px 20px;
+}
+.pie_data{
+	padding-top: 232px;
+	float: left;
+	margin: 0 20px 0 10px;
+	font-size: 14px;
+}
+/*子菜单*/
+.userinfo_box{
+	position: relative;
+	cursor: pointer;
+}
+.userinfo_box .userinfo_menu{
+	position: absolute;
+	left: -16px;
+	top: 40px;
+	background: #ddd;
+	padding: 10px 0;
+	display: none;
+	width: 100px;
+}
+.userinfo_box .userinfo_menu a{
+	display: block;
+	color: #666;
+	padding: 0 18px;
+	line-height: 24px;
+}
+.userinfo_box .userinfo_menu a:hover{
+	background: #eee;
+}
+
+/*菜单icon*/
+.sidebar h3 span{
+	background: none;
+}
+.sidebar h3 .menu_11{
+	background-image: url('/Public/admin/image/icon_yingting.png');
+	width: 28px;
+	height: 23px;
+}
+.sidebar h3 .menu_12{
+	background-image: url('/Public/admin/image/icon_yingpian.png');
+	width: 28px;
+	height: 23px;
+	margin-top: -2px;
+}
+.sidebar h3 .menu_6{
+	background-image: url('/Public/admin/image/icon_yonghu.png');
+	width: 28px;
+	height: 23px;
+	margin-top: -2px;
+}
+.sidebar h3 .menu_13{
+	background-image: url('/Public/admin/image/icon_caiwu.png');
+	width: 28px;
+	height: 23px;
+	margin-top: -2px;
+}
+.sidebar h3 .menu_46{
+	background-image: url('/Public/admin/image/icon_xitong.png');
+	width: 28px;
+	height: 23px;
+	margin-top: -2px;
+}
+.sidebar h3 .menu_37{
+	background-image: url('/Public/admin/image/icon_geren.png');
+	width: 28px;
+	height: 23px;
+	margin-top: -2px;
+}
+
+/*常用*/
+.hidden{
+    display: none;
+}
+.clear{
+	clear:both;
+	display:block; 
+	overflow:hidden;
+	visibility:hidden;
+	width:0;
+	height:0;
+}
+.is_not_read{
+    font-weight: bold;
+    font-size: 14px;
+}
+.sidebar h3{
+	height: 42px;
+	line-height: 42px;
+}
+.sidebar .side-sub-menu li a{
+	height: 32px;
+	line-height: 32px;
+}
+.text_red{
+	color: red;
+}
+.text_blue{
+	color: #08c;
+}
+.text_gray{
+	color: #666;
+}
+nav{
+    display: block;
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0px;
+    margin: 20px 0px;
+    border-radius: 4px;
+}
+.pagination > li {
+    display: inline;
+}
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    margin-left: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857;
+    color: #337AB7;
+    text-decoration: none;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+}
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #FFF;
+    border-color: #DDD;
+}
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+    z-index: 3;
+    color: #23527C;
+    background-color: #EEE;
+    border-color: #DDD;
+}
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    margin-left: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    border: 0px none;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 2;
+    color: #FFF;
+    cursor: default;
+    background-color: #337AB7;
+    border-color: #337AB7;
+}

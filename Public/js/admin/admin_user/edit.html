@@ -1,0 +1,46 @@
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>{{if id}}编辑{{else}}添加{{/if}}管理员</h2>
+            <a class="kehu" href="{{'U' | F:'index'}}">
+                返回
+            </a>
+        </div>
+
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <dl class="clearfix">
+                        <dt>用户id：</dt>
+                        <dd>
+                            <input name="uid" class="bg-input w229" type="text" value=""></dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt>请选择管理员角色：</dt>
+                        <dd class="permission_list" style="width: 240px">
+                            {{each roles as row i}}
+                            <div class="clear"></div>
+                            <div><label class="level_1"> <input name="role_ids[]" value="{{row.id}}" type="checkbox">
+                                <span>{{row.name}}:</span></label>{{row.description}}</div>
+                            {{/each}}
+                        </dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+
+                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="id" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,102 @@
+TS['link'] = ''<if condition="in_array('img',$comment['types'])">
+    +TS['links']['uploadify']
+</if>;
+
+define(['jquery','fun','validate_cn'
+<if condition="in_array('img',$comment['types'])">
+    ,'uploadify'
+</if>
+],function(j,f,v
+<if condition="in_array('img',$comment['types'])">
+    ,u
+</if>
+){
+    TS.addLink();
+    var  bind = {};
+
+    bind.checkd = function(){ /* 赋值选中 */
+        var data = eval('window.' + TS.data_var+'.data');
+        f.checkd(data);
+    }
+
+
+    bind.verify = function(){ /* 表单验证 */
+        j("#edit").validate({
+            rules: {
+                <{:str_replace('"','',$restrain)}>
+            }, messages: {
+               <{$restrain}>
+            }, errorPlacement: function(error, element) {
+                element.parents('dl').find('.error_message').append(error);
+            }});
+    }
+
+
+
+    f.onclick('#edit [type="submit"]:button',function(){ /* 提交数据 */
+        var $form = j("#edit");
+        var $this = this;
+        if($form.valid()){
+            f.ajax($form.attr('action'),function(data){
+                if(data.status=='info' && data.info=='添加成功'){
+                    //$form.find('[type="reset"]:button').trigger('click');
+                }else if(data.status=='info'){
+                    window.setTimeout(function(){
+                    window.location.href= f.U('index');
+                    },2000);
+                }
+            data.content = data.content || '';
+            f.alt({status:data.status,title:data.title,content:'　'+data.content,close:3});
+            },$this,$form.serialize(),'post');
+        }
+        $this.data('click',0);
+        return false;
+    },1);
+
+<if condition="in_array('img',$comment['types'])">
+    bind.upload = function(){
+        j('.upload-img-box').find('input').each(function(i,item){
+            var $this = j(this);
+            if(j.trim($this.val())){
+                var $img = $this.parents('.upload-img-box').show().find('img');
+                $img.attr('src',$img.attr('url')+$this.val());
+            }
+        });
+        j('#ts-img').uploadify({
+            'swf': '/Public/tooljs/uploadify/uploadify.swf', //上传图片是post数据,必须用同域名路径
+            'uploader': f.U('home/upload/img'),
+            'height': 25,
+            'width': 120,
+            "buttonText": "上传图片",
+            'formData': {'dir': j('#ts-img').siblings('.upload-img-box').find('input').attr('name')},
+            'fileTypeExts': '*.gif; *.jpg; *.png;*.bmp;*.jpeg',
+            'debug': false,
+            'onUploadSuccess': function (file, data) {
+                eval('var data = ' + data);
+                if(data.status!='warming'){
+                    var $img = j('#ts-img').siblings('.upload-img-box').show().find('img');
+                    $img.attr('src',$img.attr('url')+data.pic+'?time='+Math.random());
+                    $img.siblings('input').val(data.pic);
+                }
+            },
+            'onFallback': function () {
+                f.alt({status:'warning',title:'警告',content:'未检测到兼容版本的Flash.',close:3});
+            }
+    });
+
+    }
+</if>
+
+
+
+
+
+    function init(){
+        for(var i in bind){
+            bind[i]();
+        }
+    }
+    return {
+        init:init
+    };
+});

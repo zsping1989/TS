@@ -1,0 +1,59 @@
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>{{if id}}编辑{{else}}添加{{/if}}角色</h2>
+            <a class="kehu" href="#">
+                返回
+            </a>
+
+        </div>
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <dl class="clearfix">
+                        <dt>名称：</dt>
+                        <dd>
+                            <input name="name" class="bg-input w229" type="text" value=""></dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt>描述：</dt>
+                        <dd>
+                            <textarea name="description" class="bg-textarea w229"></textarea>
+                        </dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+
+                    <dl class="clearfix">
+                        <dt>角色权限：</dt>
+                        <dd class="permission_list">
+                            {{each power as row i}}
+                                {{if row.lft!=row.rght-1}}
+                                <div class="clear"></div>
+                                {{/if}}
+
+                                <div class="level_{{row.deep}}">
+                                    <label>
+                                        <input name="power_ids[]" {{if id==1}}disabled="disabled"{{/if}} value="{{row.id}}" type="checkbox">
+                                        <span>{{row.name}}</span>
+                                    </label>
+                                </div>
+                            {{/each}}
+                        </dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="id" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,109 @@
+<div class="ts-container">
+    <div class="clearfix searchspin">
+        <dl style="height: 30px;">
+            <dt>筛选条件:</dt>
+            <dd>
+                <form action="" method="get">
+                    条件筛选:
+                    <select name="ts-field">
+                        <volist name="comment['field'] " id="row">
+                            <option value="<{$key}>"><{$row['comment']}></option>
+                        </volist>
+                    </select>
+                    <select class="ts-select-type" name="where[id][0]">
+                        <option value="eq">=</option>
+                        <option value="gt">&gt;</option>
+                        <option value="lt">&lt;</option>
+                        <option value="like">像</option>
+                    </select>
+                    <input class="ts-value" name="where[id][1]" value="">
+                    <button class="btn btn-primary btn-xs ts-search">收索</button>
+                    <br/>
+                    <br/>
+                </form>
+            </dd>
+        </dl>
+        <a class="kehu uploadify-button" href="{{'U' | F:'edit'}}" role="button">添加<{$comment['table_comment']}></a>
+    </div>
+    <div class="spin-cont">
+        <form action="" method="get" class="data-list">
+            <table class="table table-hover table-bordered">
+                <tr class="active">
+                    <th style="width: 35px;"><input class="select-all" type="checkbox" value=""></th>
+                    <volist name="comment['field'] " id="row">
+                        <th ts-order="<{$key}>" class="ts-order"
+                            order-desc="{{if order.<{$key}>=='desc'}}1{{else}}0{{/if}}">
+                            <{$row['comment']}>
+                            <a>{{if order.<{$key}>=='desc'}}▼{{else}}▲{{/if}}</a>
+                        </th>
+                    </volist>
+                    <th style="width: 105px">操作</th>
+                </tr>
+                {{each data as row i}}
+                <tr>
+                    <td><input name="<{$comment['pk']}>[]" type="checkbox" value="{{row.<{$comment['pk']}>}}"></td>
+                    <volist name="comment['field'] " id="row">
+                        <td>
+                            <if condition="$row['type']=='time'">{{'dateFormat' | F:row.<{$key}>,'yyyy-MM-dd hh:mm:ss'}}
+                                <elseif condition="$row['type'] eq 'img'"/>
+                                <img src="{{if row.<{$key}>}}{{'_IMG_' | C}}{{row.<{$key}>}}{{/if}}"
+                                     style="width: 120px">
+                                <else/>
+                                {{row.<{$key}>}}
+                            </if>
+                        </td>
+                    </volist>
+                    <td><a class="gray" href="{{'U' | F:'edit'}}?id={{row.<{$comment['pk']}>}}"
+                           role="button">修改</a>
+                        &nbsp;&nbsp;
+                        <a href="#" class="ts_remove gray" id="{{row.<{$comment['pk']}>}}">
+                            删除
+                        </a>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </form>
+        <div class="clearfix mt16">
+            <button class="gray-btn remove_select" type="button">删除选中</button>
+            <nav style="float: right">
+                <ul class="pagination">
+                    <li
+                    {{if page==1}}class="disabled"{{/if}}><a href="#" aria-label="Previous"><span
+                        aria-hidden="true">«</span></a></li>
+                    {{if (page-3)>0}}
+                    <li><a href="#">{{page-3}}</a></li>
+                    {{/if}}
+                    {{if (page-2)>0}}
+                    <li><a href="#">{{page-2}}</a></li>
+                    {{/if}}
+                    {{if (page-1)>0}}
+                    <li><a href="#">{{page-1}}</a></li>
+                    {{/if}}
+                    <li class="active"><a href="#">{{page}}</a></li>
+                    {{if (page+1)<=pageCount}}
+                    <li><a href="">{{page+1}}</a></li>
+                    {{/if}}
+                    {{if (page+2)<=pageCount}}
+                    <li><a href="#">{{page+2}}</a></li>
+                    {{/if}}
+                    {{if (page+3)<=pageCount}}
+                    <li><a href="#">{{page+3}}</a></li>
+                    {{/if}}
+                    <li
+                    {{if page==pageCount}}class="disabled"{{/if}}><a href="#" aria-label="Next"><span
+                        aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

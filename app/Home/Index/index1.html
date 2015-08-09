@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="http://static.test.com/tooljs/require.js/2.1.18/require.min.js"></script>
+    <title>购物车实例</title>
+</head>
+<body class="hid">
+<h1>购物车实例</h1>
+<div class="container" ng-app="ShoppingCartModule">
+    <div class="panel panel-default" ng-controller='CartController'>
+        <!-- Default panel contents -->
+        <div class="panel-heading">购物车:渲染时间:{{times()}}---请求时间:{{timesss()}}--总耗时:{{timess()}}</div>
+
+        <!-- Table -->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td>名称</td>
+                <td>数量</td>
+                <td>单价</td>
+                <td>总计</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody >
+            <tr ng-repeat='item in items' ng-click='selectOneRow($index)' ng-class='{info: $index==selectedRow}'>
+                <td ng-bind="item.title"></td>
+                <td>
+                    <input class="form-control" style="width: 6em;" ng-model='item.quantity' /></td>
+                <td ng-bind="item.price | currency"></td>
+                <td ng-bind="item.price * item.quantity | currency"></td>
+                <td>
+                    <button class="btn btn-default" ng-click="remove($index)">移除</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>总计: {{totalCart() | yuan}}sssss</div>
+        <a href="#" class="btn btn-primary" role="button" ng-click="insertOne()">添加到购物车</a>
+    </div>
+</div>
+
+<script>
+    (function(){
+        var __URL__ = 'http://data.test.com';
+        var href = window.document.location.href;
+        href = href.split('/');
+        var m = href[href.length-3];
+        var c = href[href.length-2];
+        var a = href[href.length-2];
+        var time2 = new Date();
+        time2 = time2.getTime();
+        require.config({
+            baseUrl : "http://static.test.com/",
+            paths : {
+                "jquery" : "tooljs/jquery/2.1.4/jquery.min",
+                "angular" : "tooljs/angular.js/1.4.0-rc.2/angular.min"
+            },
+            shim : {
+                "angular" : {}
+            }
+        });
+        /* 异步加载 */
+        require(['jquery',
+             __URL__+'/index.php?module='+m+'&controller='+c+'&action='+a, //数据
+           //  __URL__+'/Public/js/public/functions.js' //公共函数
+            ,'angular'], //模板
+                function () {
+
+                    var time1 = new Date();
+                    time1 = time1.getTime();
+                    //处理购物车的模块
+                    var shoppingCartModule = angular.module('ShoppingCartModule', []);
+                    shoppingCartModule.controller("CartController", function ($scope) {
+                        $scope.items = data.data;
+                        $scope.totalCart = function () {
+                            var total = 0;
+                            for (var i = 0, len = $scope.items.length; i < len; i++) {
+                                total = total + $scope.items[i].price * $scope.items[i].quantity;
+                            }
+                            return total;
+                        }
+                        $scope.times = function(){
+                            return (new Date()).getTime() - time1;
+                        }
+                        $scope.timess = function(){
+                            return (new Date()).getTime() - time2;
+                        }
+                        $scope.timesss = function(){
+                            return time1 - time2;
+                        }
+
+
+                        $scope.remove = function (index) {
+                        $scope.items.splice(index, 1); };
+                        $scope.insertOne = function () { $scope.items.splice(0, 0, { title: 'liupras', quantity: 10, price: 8.95 }); };
+                        $scope.selectOneRow = function (row) {
+                            $scope.selectedRow = row;
+                        };
+                    });
+
+                    //自定义过滤器
+                    shoppingCartModule.filter("yuan", function () {
+                        var yuanFilter = function (input) {
+                            var f = parseFloat(input);
+                            if (isNaN(f)) {
+                                return;
+                            }
+                            f = Math.round(input * 100) / 100;
+                            var s = f.toString();
+                            var rs = s.indexOf('.');
+                            if (rs < 0) {
+                                rs = s.length;
+                                s += '.';
+                            }
+                            while (s.length <= rs + 2) {
+                                s += '0';
+                            }
+                            return "￥" + s;
+                        }
+                        return yuanFilter;
+                    });
+                    $('body').removeClass('hid');
+
+                });
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>编辑权限</h2>
+            <a class="kehu" href="#">
+                返回
+            </a>
+        </div>
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <dl class="clearfix">
+                        <dt>权限名称：</dt>
+                        <dd>
+                            <input name="name" class="bg-input w229" type="text" value=""></dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+
+                    <dl class="clearfix">
+                        <dt>权限url地址：</dt>
+                        <dd>
+                            <input name="url" class="bg-input w229" type="text" value=""></dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt>父id：</dt>
+                        <dd>
+                            <input name="parent_id" type="hidden" value="">
+                            <input name="old_parent_id" type="hidden" value="">
+                            <ul id="tree" class="ztree" style="width:229px; overflow:auto;"></ul>
+                        </dd>
+                        <dd class="error_message"></dd>
+                    </dl>
+                    {{if data.deep<3 || !id}}
+                    <dl class="clearfix">
+                        <dt>是否显示：</dt>
+                        <dd>
+                            <input name="status" type="radio" checked="checked" value="1">是
+                            <input name="status" type="radio" value="2">否
+                        </dd>
+
+                        <dd class="error_message"></dd>
+                    </dl>
+                    {{/if}}
+                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="id" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

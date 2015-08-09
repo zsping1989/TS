@@ -1,0 +1,97 @@
+<div class="ts-container">
+    <h1>编辑用户信息</h1>
+
+    <div class="container-fluid">
+        <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>选项</th>
+                    <th>值</th>
+                </tr>
+                <tr>
+
+                    <td>用户名</td>
+                    <td>
+                        <input name="uname" type="text" value=""></td>
+                </tr>
+
+                {{if !id}}
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <input name="password" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td>重复密码</td>
+                    <td>
+                        <input name="repassword" type="text" value=""></td>
+                </tr>
+                {{/if}}
+
+
+                <tr>
+                    <td>姓名</td>
+                    <td>
+                        <input name="name" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td>电子邮箱</td>
+                    <td>
+                        <input name="email" type="text" value=""></td>
+                </tr>
+                {{if id}}
+                <tr>
+                    <td>头像</td>
+                    <td>
+                        <input type="file" id="ts-img"/>
+
+                        <div class="upload-img-box" style="display:none">
+                            <div class="upload-pre-item">
+                                <img url="{{'_IMG_' | C}}">
+                                <input type="hidden" name="head_portrait" value=""/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td>随机数key</td>
+                    <td>
+                        <input name="key" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td>用户类型</td>
+                    <td>
+                        <input name="type" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td>创建时间</td>
+                    <td>
+                        <input name="ctime" type="text" value="" style="width: 205px;"
+                               class="form_datetime form-control ts_time">
+                    </td>
+                </tr>
+                <tr>
+                    <td>修改时间</td>
+                    <td>
+                        <input name="utime" type="text" value="" style="width: 205px;"
+                               class="form_datetime form-control ts_time">
+                    </td>
+                </tr>
+                <tr>
+                    <td>状态</td>
+                    <td>
+                        <input name="status" type="radio" value="0">
+                        已删除<input name="status" type="radio" value="1">
+                        未激活<input name="status" type="radio" value="2">
+                        激活
+                    </td>
+                </tr>
+            </table>
+
+            <input name="id" type="hidden" value="">
+            <button class="btn btn-success" type="submit">提交</button>
+            <button class="btn btn-info" type="reset">重置</button>
+        </form>
+    </div>
+</div>

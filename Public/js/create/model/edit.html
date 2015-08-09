@@ -1,0 +1,55 @@
+
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>{{if id}}编辑{{else}}添加{{/if}}模型关系</h2>
+            <a class="kehu" href="{{'U' | F:'index'}}">
+                返回
+            </a>
+        </div>
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <dl class="clearfix">
+                                <dt>主表ID：</dt>
+                                <dd>
+                                                                            <input name="main_table" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>主表关联字段：</dt>
+                                <dd>
+                                                                            <input name="main_field" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>关系表ID：</dt>
+                                <dd>
+                                                                            <input name="relation_table" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>关系表关联字段：</dt>
+                                <dd>
+                                                                            <input name="relation_field" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>关系类型：</dt>
+                                <dd>
+                                    <input name="type" type="radio" value="0">
+                                            一对一<input name="type" type="radio" value="1">
+                                            一对多                                                                    </dd>
+                                <dd class="error_message"></dd>
+                            </dl>                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="id" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

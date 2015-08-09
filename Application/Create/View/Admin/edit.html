@@ -1,0 +1,64 @@
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>{{if id}}编辑{{else}}添加{{/if}}<{$comment['table_comment']}></h2>
+            <a class="kehu" href="{{'U' | F:'index'}}">
+                返回
+            </a>
+        </div>
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <foreach name="comment['field']" item="row" key="k" >
+                        <if condition="($k neq $comment['pk'])
+                        AND ($k neq 'status')
+                        AND ($k neq 'ctime')
+                        AND ($k neq 'utime')">
+                            <dl class="clearfix">
+                                <dt><{$row['comment']}>：</dt>
+                                <dd>
+                                    <if condition="($row['type'] eq 'radio') OR ($row['type'] eq 'checkbox')">
+                                        <volist name="row['value']" id="v">
+                                            <input name="<{$k}>" type="<{$row['type']}>" value="<{$v}>">
+                                            <{$key}>
+                                        </volist>
+                                    <elseif condition="$row['type'] eq 'select'"/>
+                                        <select name="<{$k}>">
+                                            <volist name="row['value']" id="v">
+                                                <option value="<{$v}>"><{$key}></option>
+                                            </volist>
+                                        </select>
+                                    <elseif condition="$row['type'] eq 'textarea'"/>
+                                        <textarea name="<{$k}>" class="bg-textarea w229"></textarea>
+                                    <elseif condition="$row['type'] eq 'img'"/>
+                                        <input type="file" id="ts-img"/>
+                                        <div class="upload-img-box" style="display:none">
+                                            <div class="upload-pre-item">
+                                                <img url="{{'_IMG_' | C}}">
+                                                <input type="hidden" name="<{$k}>" value=""/>
+                                            </div>
+                                        </div>
+                                    <else />
+                                        <input name="<{$k}>" class="bg-input w229" type="text" value="">
+                                    </if>
+                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl>
+                        </if>
+                    </foreach>
+                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="<?php echo $comment['pk']; ?>" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

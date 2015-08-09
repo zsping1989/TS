@@ -1,0 +1,109 @@
+<div class="container">
+    <span class="glyphicon glyphicon-refresh" style="background: #ffffff;" aria-hidden="true"></span>
+
+    <div>
+        <div class="panel-heading">购物车:</div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td>名称</td>
+                <td>数量</td>
+                <td>单价</td>
+                <td>总计</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody >
+            {{each data as value i}}
+            <tr>
+                <td>{{value.title}}</td>
+                <td>
+                    <input class="form-control" style="width: 6em;" value="{{value.quantity}}" data-dfv="{{value.quantity}}"/></td>
+                <td>{{value.price}}</td>
+                <td class="count">{{(value.price*value.quantity*10)/10}}</td>
+                <td>
+                    <button class="btn btn-default">移除</button></td>
+            </tr>
+            {{/each}}
+
+            </tbody>
+        </table>
+        <div>{{totals}}总计: <span class="total">{{total}}</span></div>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a class="btn" href="#"><i class="icon-align-left"></i></a>
+                <a class="btn" href="#"><i class="icon-align-center"></i></a>
+                <a class="btn" href="#"><i class="icon-align-right"></i></a>
+                <a class="btn" href="#"><i class="icon-align-justify"></i></a>
+            </div>
+        </div>
+        <a href="javascript:void(0);"  class="btn btn-primary" type="button">添加到购物车</a>
+        <a href="javascript:void(0);"  class="btn btn-info" type="button">刷新</a>
+        <a href="javascript:void(0);"  class="btn btn-warning" type="button">测试</a>
+    </div>
+</div>
+<button type="button" class="btn btn-danger btn-lg dialog">
+   弹窗
+</button>
+<input name="ctime" type="text" value="2012-06-15 14:45" readonly class="form_datetime form-control ts_time">
+
+<button type="button" class="btn btn-danger btn-lg dialog1">
+    弹窗点击其它消失
+</button>
+<button type="button" class="btn btn-danger btn-lg alt">
+    提示消息
+</button>
+<button type="button" class="btn btn-danger btn-lg alt1">
+    提示消息--消失
+</button>
+
+<button type="button" class="btn btn-danger btn-lg layer1">
+    layer弹窗
+</button>
+<button type="button" class="btn btn-danger btn-lg layer2">
+    layer弹窗2
+</button>
+
+<form id="signupForm" method="get" action="">
+    <p>
+        <label for="firstname">Firstname</label>
+        <input id="firstname" name="firstname" />
+    </p>
+    <p>
+        <label for="email">E-Mail</label>
+        <input id="email" name="email" />
+    </p>
+    <p>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" />
+    </p>
+    <p>
+        <label for="confirm_password">确认密码</label>
+        <input id="confirm_password" name="confirm_password" type="password" />
+    </p>
+    <p>
+        <input class="submit" type="submit" value="Submit"/>
+    </p>
+</form>
+
+
+<!--模板中嵌套模板-->
+
+<!--添加模板-->
+<script id="list" type="text/html">
+    <tr>
+        <td>{{$1}}title{{$2}}</td>
+        <td>
+            <input class="form-control" style="width: 6em;" value="{{$1}}quantity{{$2}}" data-dfv="{{$1}}quantity{{$2}}"/></td>
+        <td>{{$1}}price{{$2}}</td>
+        <td class="count">{{$1}}(price*quantity*10)/10{{$2}}</td>
+        <td>
+            <button class="btn btn-default">移除</button></td>
+    </tr>
+</script>
+
+
+
+
+
+

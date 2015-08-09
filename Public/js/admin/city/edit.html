@@ -1,0 +1,52 @@
+<div class="ts-container">
+    <div class="spin-cont">
+        <div class="user-hd">
+            <h2>{{if id}}编辑{{else}}添加{{/if}}城市列表</h2>
+            <a class="kehu" href="{{'U' | F:'index'}}">
+                返回
+            </a>
+        </div>
+        <div class="user_zl">
+            <div class="container-fluid">
+                <form action="{{'U' | F:'doEdit'}}" id="edit" method="get">
+                    <dl class="clearfix">
+                                <dt>名称：</dt>
+                                <dd>
+                                                                            <input name="name" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>层级：</dt>
+                                <dd>
+                                                                            <input name="deep" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>父id：</dt>
+                                <dd>
+                                                                            <input name="parent_id" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>左边界：</dt>
+                                <dd>
+                                                                            <input name="lft" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl><dl class="clearfix">
+                                <dt>右边界：</dt>
+                                <dd>
+                                                                            <input name="rght" class="bg-input w229" type="text" value="">                                </dd>
+                                <dd class="error_message"></dd>
+                            </dl>                    <dl class="clearfix">
+                        <dt></dt>
+                        <dd>
+                            <input name="id" type="hidden" value="">
+                            <button class="btn btn-success" type="submit">提交</button>
+                            <button class="btn btn-info" type="reset">重置</button>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
