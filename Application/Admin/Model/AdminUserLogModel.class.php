@@ -11,6 +11,7 @@ class AdminUserLogModel extends BaseModel{
     protected $_auto = array (
 
     );
+    protected $line = array('User');
     protected $_link = array( //关系表
         'User'=>array(
             'relation_type'=>self::MAY_MANY_TO, //关系表(用户表)一定有一条记录关联主表(管理员表)

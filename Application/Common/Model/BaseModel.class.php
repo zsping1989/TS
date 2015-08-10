@@ -18,8 +18,9 @@ class BaseModel extends Model{
     const   HAS_MANY    =   3; //一对多(关系表中多条记录对应主表) (后台用户的操作日志)
     const   MAY_MANY_TO =   4; //多对一(主表中多条记录可能对应关联表中的一条记录) (操作日志对应用户表,可能是匿名的)
     const   MANY_TO     =   5; //多对一(主表中多条记录一定对应关联表中的一条记录) (不支持匿名下单的订单表跟用户之间的关系)
-
-    protected    $_link = array();
+    const   MANY_TO_MANY=   6; //多对多(存在关联表中间表)
+    protected $line = array(); //关系线条
+    protected $_link = array();//表关系
 
     public function __construct(){
         $this->setAuto();
@@ -54,26 +55,27 @@ class BaseModel extends Model{
 
     public function getOne($options = array(),$status = false){ /* 获取一条数据 */
         $options = $this->handleOptions($options,$status);
-        return $this->table($options['table'])
-                    ->field($options['field'])
-                    ->where($options['whereStr'])
-                    ->where($options['where'])
-                    ->group($options['group'])
-                    ->join($options['join'])
-                    ->find();
+        $result = $this->table($options['table'])
+                        ->field($options['field'])
+                        ->where($options['whereStr'])
+                        ->where($options['where'])
+                        ->group($options['group'])
+                        ->join($options['join'])
+                        ->find();
+        return $result;
     }
 
 
     public function getAll($options = array(),$status = false){ /* 查询所有数据 */
         $options = $this->handleOptions($options,$status);
-        //dump_exit($options);
-        return $this->table($options['table'])
-                    ->field($options['field'])
-                    ->where($options['whereStr'])
-                    ->where($options['where'])
-                    ->group($options['group'])
-                    ->join($options['join'])
-                    ->select();
+        $result = $this->table($options['table'])
+                        ->field($options['field'])
+                        ->where($options['whereStr'])
+                        ->where($options['where'])
+                        ->group($options['group'])
+                        ->join($options['join'])
+                        ->select();
+        return $result;
     }
 
 
@@ -103,18 +105,19 @@ class BaseModel extends Model{
     private function handleLink($options = array()){ //关联操作
         if (!$options) return array();
         is_string($options['field']) and $field[] = $options['field'];
+
         foreach ($options['field'] as $key => $row) {
+            $alias = $this->_link[upper($key)]['relation_alias'];
+            $alias = $alias ? '`'.$alias.'`' : '`obj`';
             if (is_array($row)) {
                 array_walk($row, function (&$v, $k, $key) {
-                    $key = $key ? $key : 'obj';
                     if (!strrpos($v, ')')) { //如果sql没有函数处理字段
-                        $v = $v == '*' ? '`'.$key . '`.' . $v . '' : '`'.$key . '`.`' . str_ireplace(' as ','` AS `',$v) . '`';
+                        $v = $v == '*' ? $key . '.' . $v . '' : $key . '.`' . str_ireplace(' as ','` AS `',$v) . '`';
                     }
-                }, $this->_link[upper($key)]['relation_alias']);
-                $field[] = implode(',', $row);
+                }, $alias);
+                $field[upper($key)] = implode(',', $row);
             } else {
-                $table = strtolower($key)=='obj' ? '`obj`' : '`'. $this->_link[upper($key)]['relation_alias'].'`';
-                $field[] = strrpos($row, '.')===false ? $table.'.'.$row : $row;
+                $field[upper($key)] = strrpos($row, '.')===false ? $alias.'.'.$row : $row;
             }
             if ($this->_link[upper($key)] || strtolower($key) == 'obj') {
                 switch ($this->_link[upper($key)]['relation_type']) {
@@ -126,17 +129,15 @@ class BaseModel extends Model{
                         $options['table'] = array_merge($options['table'], array(trueTab($key) => $this->_link[upper($key)]['relation_alias']));
                         $options['field_alias'] = 1;
                         break;
-                    case self::BELONGS_TO:
                     case self::HAS_MANY:
+                    case self::BELONGS_TO:
                     case self::MAY_MANY_TO:
                         $options['join'] = $options['join'] ? $options['join'] :array();
                         $options['join'] = array_merge($options['join'],array('LEFT JOIN `'.trueTab($key).'` `'. $this->_link[upper($key)]['relation_alias'].'` ON `obj`.`'.$this->_link[upper($key)]['main_field'] .'` = `'.$this->_link[upper($key)]['relation_alias'].'`.`'.$this->_link[upper($key)]['relation_field'] .'`'));
                         $options['field_alias'] = 1;
                         break;
-
-
                     default:
-                        //dump_exit(2);
+                        break;
                 }
             }
         }

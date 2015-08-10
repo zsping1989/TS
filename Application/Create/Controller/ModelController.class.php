@@ -10,7 +10,10 @@ class ModelController extends CommonController {
 
     /* 模型图动态生成的js */
     public function modelGraphJs(){
-        $table = D('Table')->getAll();
+        //先查询单表
+        $this->assign('tables',$this->idToKey(D('Table')->getAll()));
+        $this->assign('links',D('table_relation')->getAll());
+        $this->assign('ii',-1);
         $this->display();
     }
 

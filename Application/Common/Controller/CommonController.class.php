@@ -140,6 +140,15 @@ class CommonController extends Controller {
     }
 
 
+    protected function idToKey($list){ /* 将列表数据的id设成key */
+        $result = array();
+        foreach($list as $row){
+            $result[$row['id']] = $row;
+        }
+        return $result;
+    }
+
+
     private function checkAdminLogin(){ /* 后台登录检查 */
         if(!session('isLoggedAdmin') || session('ipAdmin')!=$_SERVER['REMOTE_ADDR']){
             jump(U('Login/index'),'',0);

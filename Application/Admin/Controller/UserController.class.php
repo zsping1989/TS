@@ -8,9 +8,9 @@ class UserController extends CommonController {
 
     public function test(){
         $options['where'] = array('id'=>array('obj'=>array('eq',1)));
-        $options['field'] = array('AdminUserLog'=>array('url'));
-        //D('User')->getAll($options);
-        dump_exit(D('User')->getAll($options));
+        $options['field'] = array('AdminUserLog'=>array('ip'),'obj'=>array('name','id'),'AdminUser'=>array('id as auid'));
+        //D('User')->getLimit(1,$options);
+        dump_exit(D('User')->getOne($options));
         dump_exit(D('User')->getLastSql());
     }
     protected function indexSelectBefore(&$request,&$options,&$model_name){
