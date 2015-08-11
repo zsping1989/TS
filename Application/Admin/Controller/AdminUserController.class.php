@@ -5,7 +5,15 @@ use Common\Controller\CommonController;
 
 class AdminUserController extends CommonController {
     protected $title = "后台用户管理";
-
+    public function test(){
+        $options['where'] = array('id'=>array('obj'=>array('eq',1)));
+        ;
+        dump_exit(D('AdminUser')->relation(true)->select());
+        //$options['field'] = array('AdminUserLog'=>array('ip'),'obj'=>array('name','id'),'AdminUser'=>array('id as auid'));
+        //D('User')->getLimit(1,$options);
+        dump_exit(D('User')->getOne($options));
+        dump_exit(D('User')->getLastSql());
+    }
 
 
     protected function indexSelectBefore(&$request,&$options,&$model_name){
@@ -23,6 +31,7 @@ class AdminUserController extends CommonController {
     protected function indexSelectLater(&$request,&$data,&$display_flog){
         $data['order'] = $request['order'] ? $request['order'] :array();
         $data['where'] = $request['where'] ? $request['where'] :array();
+        dump_exit(D('AdminUser')->getLastSql());
     }
 
 

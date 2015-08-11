@@ -82,6 +82,11 @@ class IndexController extends CommonController {
         }
 
         $request['comment'] = $this->getComment(C('DB_PREFIX').$request['t_name']); //获取数据库备注信息
+        $table = D('table')->getOne(array('where'=>array('table'=>array('eq',$request['t_name'])),'field'=>array('id','alias')));//获取表信息
+        $request['tables'] = $this->idToKey(D('table')->getAll(array('field'=>array('id','table','alias'))));
+        $request['relation'] = D('TableRelation')
+            ->where('`status`>0 AND `main_table` = '.$table['id'].' OR (`type`=6 AND `status`>0 AND `relation_table`='.$table['id'].')')
+            ->select();
         foreach($request['comment']['field'] as $field=>$row){
             if($row['restrain']){
                 $request['restrain'][] = $field.':'.json_encode($row['restrain']);

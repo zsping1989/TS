@@ -224,7 +224,7 @@ class RelationModel extends Model {
                                     }
                                 }
                             }else{
-                                $result[$mappingName] = $relationData;
+                                $result[$mappingName] = $relationData ? $relationData :array();
                             }
                             unset($relationData);
                         }else{

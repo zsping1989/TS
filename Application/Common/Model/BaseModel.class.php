@@ -11,15 +11,8 @@ namespace Common\Model;
 
 use Think\Model;
 
-class BaseModel extends Model{
-    /* 关联常量定义 */
-    const   HAS_ONE     =   1; //一对一(关系表中一定有一条记录与主表对应) where连接  (管理员表的每条数据信息来自用户表)
-    const   BELONGS_TO  =   2; //一对一(关系表中可能存在一条记录与主表对应) 关系表属于主表 join left连接 (用户表中可能有些用户是管理员)
-    const   HAS_MANY    =   3; //一对多(关系表中多条记录对应主表) (后台用户的操作日志)
-    const   MAY_MANY_TO =   4; //多对一(主表中多条记录可能对应关联表中的一条记录) (操作日志对应用户表,可能是匿名的)
-    const   MANY_TO     =   5; //多对一(主表中多条记录一定对应关联表中的一条记录) (不支持匿名下单的订单表跟用户之间的关系)
-    const   MANY_TO_MANY=   6; //多对多(存在关联表中间表)
-    protected $line = array(); //关系线条
+class BaseModel extends Model\RelationModel{
+    protected $_line = array(); //关系线条
     protected $_link = array();//表关系
 
     public function __construct(){
@@ -103,7 +96,7 @@ class BaseModel extends Model{
     }
 
     private function handleLink($options = array()){ //关联操作
-        if (!$options) return array();
+   /*     if (!$options) return array();
         is_string($options['field']) and $field[] = $options['field'];
 
         foreach ($options['field'] as $key => $row) {
@@ -141,7 +134,7 @@ class BaseModel extends Model{
                 }
             }
         }
-        $options['field'] = implode(',', $field);
+        $options['field'] = implode(',', $field);*/
         return $options;
     }
 
