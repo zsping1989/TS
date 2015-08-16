@@ -73,6 +73,7 @@ class BaseModel extends Model\RelationModel{
 
 
     public function getLimit($page = 1,$options = array(),$status = false){ /* 查询列表数据 */
+        is_array($page) and $options = $page and $page = 1;
         $options = $this->handleOptions($options,$status);
         $result['count'] = $this->table($options['table'])
                                 ->where($options['where'])
@@ -80,6 +81,7 @@ class BaseModel extends Model\RelationModel{
                                 ->join($options['join'])
                                 ->group($options['group'])
                                 ->count();
+        $options['group'] and $result['count'] = $this->query('SELECT COUNT(*) AS `count` FROM ('.str_replace('LIMIT 1','',$this->getLastSql()).') AS a LIMIT 1')[0]['count'];
         $pageCount = ceil($result['count']/C('pageSize'));
         $pageCount = $pageCount ? $pageCount :1;
         $page = $page > $pageCount ? $pageCount: $page;
@@ -96,9 +98,8 @@ class BaseModel extends Model\RelationModel{
     }
 
     private function handleLink($options = array()){ //关联操作
-   /*     if (!$options) return array();
+        if (!$options) return array();
         is_string($options['field']) and $field[] = $options['field'];
-
         foreach ($options['field'] as $key => $row) {
             $alias = $this->_link[upper($key)]['relation_alias'];
             $alias = $alias ? '`'.$alias.'`' : '`obj`';
@@ -113,35 +114,40 @@ class BaseModel extends Model\RelationModel{
                 $field[upper($key)] = strrpos($row, '.')===false ? $alias.'.'.$row : $row;
             }
             if ($this->_link[upper($key)] || strtolower($key) == 'obj') {
-                switch ($this->_link[upper($key)]['relation_type']) {
-                    case self::MANY_TO:
-                    case self::HAS_ONE:
-                        $whereStr = '`obj`.`' . $this->_link[upper($key)]['main_field'] . '`=' . $this->_link[upper($key)]['relation_alias'] . '.`' . $this->_link[upper($key)]['relation_field'] . '`';
+                switch ($this->_link[upper($key)]['mapping_type']) {
+                    case self::MANY_TO_MANY:
+                        $whereStr = '`obj`.`id`=' . $this->_link[upper($key)]['middle_alias'] .
+                            '.`' . $this->_link[upper($key)]['main_field'] . '` AND `'
+                            .$this->_link[upper($key)]['middle_alias'].'`.`'
+                            .$this->_link[upper($key)]['relation_field'].'`=`'
+                            . $this->_link[upper($key)]['relation_alias'].'`.`id`';
                         $options['whereStr'] = $options['whereStr'] ? $options['whereStr'] . ' AND ' . $whereStr : $whereStr;
                         $options['table'] = $options['table'] ? $options['table'] : array();
-                        $options['table'] = array_merge($options['table'], array(trueTab($key) => $this->_link[upper($key)]['relation_alias']));
+                        $options['table'] = array_merge($options['table'], array(trueTab($this->_link[upper($key)]['middle_table'])=>$this->_link[upper($key)]['middle_alias'],trueTab($key) => $this->_link[upper($key)]['relation_alias']));
                         $options['field_alias'] = 1;
+                        $options['where']['status'][$this->_link[upper($key)]['relation_alias']] = array('gt',0);
                         break;
+                    case self::HAS_ONE:
                     case self::HAS_MANY:
                     case self::BELONGS_TO:
-                    case self::MAY_MANY_TO:
                         $options['join'] = $options['join'] ? $options['join'] :array();
                         $options['join'] = array_merge($options['join'],array('LEFT JOIN `'.trueTab($key).'` `'. $this->_link[upper($key)]['relation_alias'].'` ON `obj`.`'.$this->_link[upper($key)]['main_field'] .'` = `'.$this->_link[upper($key)]['relation_alias'].'`.`'.$this->_link[upper($key)]['relation_field'] .'`'));
                         $options['field_alias'] = 1;
-                        break;
+                        $options['where']['status'][$this->_link[upper($key)]['relation_alias']] = array('gt',0);
+                    break;
                     default:
                         break;
                 }
             }
         }
-        $options['field'] = implode(',', $field);*/
+        $options['field'] = implode(',', $field);
         return $options;
     }
 
 
     private function handleOptions($options=array(),$status = false){ /* 处理查询参数 */
         $options = $this->handleLink($options);
-        $whereStr = isset($options['whereStr']) ? $options['whereStr']:'1';
+        $whereStr = isset($options['whereStr']) ? $options['whereStr'] : '1';
         if($options['field_alias'] && $options['where']){ //存在多表查询处理
             $options['whereStr'] = $this->jointSql($whereStr,$options['where']);
             unset($options['where']);

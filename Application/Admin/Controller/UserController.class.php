@@ -7,14 +7,13 @@ class UserController extends CommonController {
     protected $title = "用户管理";
 
     public function test(){
-        $options['where'] = array('id'=>array('obj'=>array('eq',1)));
-        ;
-        dump_exit(D('User')->relation(true)->select());
-        //$options['field'] = array('AdminUserLog'=>array('ip'),'obj'=>array('name','id'),'AdminUser'=>array('id as auid'));
+        //$options['where']['id']['obj'] = array('eq',1);
+        $options['field'] = array('AdminUser'=>array('id as au_id'),'obj'=>'*');
         //D('User')->getLimit(1,$options);
-        dump_exit(D('User')->getOne($options));
+        dump_exit(D('User')->getLimit(1,$options));
         dump_exit(D('User')->getLastSql());
     }
+
     protected function indexSelectBefore(&$request,&$options,&$model_name){
         $options['where'] = $request['where'];
         $options['order'] = $request['order'];

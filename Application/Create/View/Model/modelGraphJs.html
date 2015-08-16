@@ -69,32 +69,30 @@
             </if>
         </volist>
         <volist name="links" id="row">
+            <if condition="$row['type']==4">
+                var l<{$row['id']}>_1 = new joint.dia.Link({
+                source: { id: <{:C('DB_PREFIX')}><{$tables[$row['indirect_table']]['table']}>.id }, target: { id: <{:C('DB_PREFIX')}><{$tables[$row['main_table']]['table']}>.id },
+                attrs: {
+                    '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z', transform: 'scale(0.001)' },
+                    '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' }
+                }});
+                var l<{$row['id']}>_2 = new joint.dia.Link({
+                source: { id: <{:C('DB_PREFIX')}><{$tables[$row['indirect_table']]['table']}>.id }, target: { id: <{:C('DB_PREFIX')}><{$tables[$row['relation_table']]['table']}>.id },
+                attrs: {
+                    '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z', transform: 'scale(0.001)' },
+                    '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' }
+                }});
+                <else />
             var l<{$row['id']}> = new joint.dia.Link({
             source: { id: <{:C('DB_PREFIX')}><{$tables[$row['main_table']]['table']}>.id }, target: { id: <{:C('DB_PREFIX')}><{$tables[$row['relation_table']]['table']}>.id },
             attrs: {
-            '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z', transform: 'scale(0.001)' },
-            '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' }
-            }
-            });
+                    '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z', transform: 'scale(0.001)' },
+                    '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' }
+                }});
+            </if>
         </volist>
-            graph.addCells([<volist name="links" id="row">l<{$row['id']}>,</volist>0]);
-            var link6 = new joint.dia.Link({
+            graph.addCells([<volist name="links" id="row"><if condition="$row['type']==4">l<{$row['id']}>_1,l<{$row['id']}>_2,<else />l<{$row['id']}>,</if></volist>0]);
 
-            source: { id: t_admin_user_log.id },
-            target: { id: t_city.id },
-            labels: [
-            { position: { distance: .5, offset: { x: 20, y: 20 } }, attrs: { text: { text: '的基督教覅上的' } }}
-            ],
-            attrs: {
-            '.marker-source': {
-            d: 'M 10 0 L 0 5 L 10 10 z'
-            },
-            '.marker-target': {
-            d: 'M 10 0 L 0 5 L 10 10 z'
-            }
-            }
-            });
-            graph.addCell(link6);
         });
         var bind = {};
 

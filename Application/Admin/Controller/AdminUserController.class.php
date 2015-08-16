@@ -5,25 +5,15 @@ use Common\Controller\CommonController;
 
 class AdminUserController extends CommonController {
     protected $title = "后台用户管理";
-    public function test(){
-        $options['where'] = array('id'=>array('obj'=>array('eq',1)));
-        ;
-        dump_exit(D('AdminUser')->relation(true)->select());
-        //$options['field'] = array('AdminUserLog'=>array('ip'),'obj'=>array('name','id'),'AdminUser'=>array('id as auid'));
-        //D('User')->getLimit(1,$options);
-        dump_exit(D('User')->getOne($options));
-        dump_exit(D('User')->getLastSql());
-    }
-
-
     protected function indexSelectBefore(&$request,&$options,&$model_name){
         $options['field_alias'] = $request['ts-alias'];
         $options['where'] = $request['where'];
         $options['order'] = $request['order'];
-        $options['table'] = array(trueTab('User')=>'u',trueTab('AdminUserRole')=>'aur',trueTab('Role')=>'r');
-        $options['group'] = 'obj.id';
-        $options['field'] = 'obj.*,u.uname,u.name,GROUP_CONCAT(r.name SEPARATOR "|") AS rname';
-        $options['whereStr'] = 'u.id=obj.uid AND obj.id=aur.a_u_id AND aur.rid=r.id';
+        $options['field'] = array(
+            'obj'=>'*',
+            'Role'=>array('GROUP_CONCAT(r.name SEPARATOR "|") AS rname'),
+            'User'=>array('uname','name'));
+        $options['group'] = '`obj`.`id`';
         $model_name = "AdminUser";
     }
 
@@ -31,7 +21,6 @@ class AdminUserController extends CommonController {
     protected function indexSelectLater(&$request,&$data,&$display_flog){
         $data['order'] = $request['order'] ? $request['order'] :array();
         $data['where'] = $request['where'] ? $request['where'] :array();
-        dump_exit(D('AdminUser')->getLastSql());
     }
 
 

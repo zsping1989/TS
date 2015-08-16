@@ -13,6 +13,7 @@ class <{$model_name}>Model extends BaseModel{
     protected $_auto = array (
 
     );
+    protected $_line = array();
     protected $_link = array(
 <volist name="relation" id="row">
         '<{:upper($tables[$row['relation_table']]['table'])}>'=>array(

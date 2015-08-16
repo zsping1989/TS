@@ -15,7 +15,7 @@ class IndexController extends CommonController {
 
 
     public function create(){
-        $this->setAjax();
+        //$this->setAjax();
         $request = I('request.');
         $this->statusContent = '生成代码成功!';
         if(!($request['m_name'] && $request['c_name'] && $request['a_name'] && $request['t_name'])){
@@ -85,8 +85,18 @@ class IndexController extends CommonController {
         $table = D('table')->getOne(array('where'=>array('table'=>array('eq',$request['t_name'])),'field'=>array('id','alias')));//获取表信息
         $request['tables'] = $this->idToKey(D('table')->getAll(array('field'=>array('id','table','alias'))));
         $request['relation'] = D('TableRelation')
-            ->where('`status`>0 AND `main_table` = '.$table['id'].' OR (`type`=6 AND `status`>0 AND `relation_table`='.$table['id'].')')
+            ->where('`status`>0 AND `main_table` = '.$table['id'].' OR (`type`=4 AND `status`>0 AND `relation_table`='.$table['id'].')')
             ->select();
+        foreach($request['relation'] as $k=>$v){
+            if($v['type']==4 && $v['relation_table']==$table['id']){
+                $t = $v['relation_table'];
+                $request['relation'][$k]['relation_table'] = $request['relation'][$k]['main_table'];
+                $request['relation'][$k]['main_table'] = $t;
+                $t = $v['relation_field'];
+                $request['relation'][$k]['relation_field'] = $request['relation'][$k]['main_field'];
+                $request['relation'][$k]['main_field'] = $t;
+            }
+        }
         foreach($request['comment']['field'] as $field=>$row){
             if($row['restrain']){
                 $request['restrain'][] = $field.':'.json_encode($row['restrain']);

@@ -12,7 +12,7 @@ class AdminUserModel extends BaseModel{
     );
     protected $_line = array(
         array('User','AdminUserLog'),
-        array('AdminUserRole','Role','RolePower','Power')
+        array('Role','Power')
     );
     protected $_link = array(
         'User' => array(
@@ -43,7 +43,9 @@ class AdminUserModel extends BaseModel{
             'relation_field' => 'rid',
             'main_table' => 'admin_user',
             'main_field' => 'a_u_id',
-            'main_alias' => 'au'
+            'main_alias' => 'au',
+            'middle_table'=>'admin_user_role',
+            'middle_alias'=>'aur'
         ),);
 
 

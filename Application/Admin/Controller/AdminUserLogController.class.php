@@ -5,13 +5,6 @@ use Common\Controller\CommonController;
 
 class AdminUserLogController extends CommonController {
     protected $title = "操作日志";
-    public function test(){
-        $options['where'] = array('id'=>array('gt',0));
-        $options['field'] = array('User'=>array('name'));
-        //D('AdminUserLog')->getAll($options);
-        dump_exit(D('AdminUserLog')->getAll($options));
-        dump_exit(D('AdminUserLog')->getLastSql());
-    }
 
     protected function indexSelectBefore(&$request,&$options,&$model_name){
         $options['where'] = $request['where'];

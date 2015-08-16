@@ -15,7 +15,7 @@ class IndexController extends CommonController {
 
 
     public function index(){
-        dump_exit(array(__ACTION__,U()));
+        $this->displays();
     }
 
 

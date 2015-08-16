@@ -16,7 +16,7 @@ class CommonController extends Controller {
     protected $status = 'info';//返回成功与否
     protected $statusTitle = '';
     protected $statusContent = '';
-
+    protected $css='';
     
     public function __construct(){
         parent::__construct();
@@ -29,9 +29,19 @@ class CommonController extends Controller {
         }
         if(MODULE_NAME=='Admin' || MODULE_NAME=='Create'){
             $this->userInfo = session('adminUserInfo');
+            $this->css = '<link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/reset.css">
+                        <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/guanlicenter.css">
+                        <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/backend.css">';
             $this->setAdminHeader();
         }else{
             $this->userInfo = session('userInfo');
+            $this->css = '<link rel="stylesheet" type="text/css" href="'.C('__CSS__').'home/index/form.css">
+                        <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'home/index/thumbs.css">
+                        <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'home/index/slider.css">
+                        <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'home/index/style.css">
+';
+
+            $this->setHomeHeader();
         }
         $this->page = $_REQUEST['p'] > 1 ? intval($_REQUEST['p']) : 1;
         $this->setTitle($this->title);
@@ -276,12 +286,10 @@ class CommonController extends Controller {
     private function shows($data){ /* 前端页面显示 */
         exit( '<!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/reset.css">
-    <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/guanlicenter.css">
-    <link rel="stylesheet" type="text/css" href="'.C('__CSS__').'admin/public/backend.css">
+<head>'.$this->css.'
     <meta http-equiv="Cache－Control：max－age＝' . $this->maxAge . '，must－revalidate">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>' . '
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="http://static.test.com/tooljs/jquery/2.1.4/jquery.min.js"></script>
     <title>' . $this->allTitle . '</title>
 </head>
 <body>
@@ -362,6 +370,32 @@ class CommonController extends Controller {
 
     protected function removeLater(&$request,&$data,&$flog){
 
+    }
+
+    protected function setHomeHeader(){
+        $this->header = '<header><div class="container_12">
+				<div class="grid_12">
+					<h1>
+						<a href="index.html">
+							<img src="'.C('__IMG__').'logo.png" alt="Your Happy Family">
+						</a>
+					</h1>
+					<div class="menu_block ">
+						<a href="#" class="donate">捐赠</a>
+						<div class="clear"></div>
+						<nav class="horizontal-nav full-width horizontalNav-notprocessed">
+							<ul class="sf-menu">
+								<li class="current"><a href="index.html">主页</a></li>
+								<li><a href="index-1.html">我们做什么</a></li>
+								<li><a href="index-2.html">媒体</a></li>
+								<li><a href="index-3.html">加入</a></li>
+								<li><a href="index-4.html">联系方式</a></li>
+							</ul>
+						</nav>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div></header>';
     }
 
     protected function setAdminHeader(){

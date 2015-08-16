@@ -25,6 +25,7 @@ return array(
     '__STATIC_URL__'=>URL,
     '__TOOLJS__'=>URL.'tooljs/',
     '__CSS__'=>URL.'css/',
+    '__IMG__' =>   URL."img/",
     /*'SHOW_PAGE_TRACE'=>true,
     'TRACE_PAGE_TABS' => array(
         'base' => '基本',
